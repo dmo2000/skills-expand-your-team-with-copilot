@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     darkModeIcon.textContent = isDark ? "☀️" : "🌙";
     
     // Save preference
-    localStorage.setItem("darkMode", isDark);
+    localStorage.setItem("darkMode", isDark.toString());
   });
 
   // DOM elements
