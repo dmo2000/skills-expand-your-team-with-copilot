@@ -39,9 +39,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Helper function to escape HTML attributes
   function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+    const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;'
+    };
+    return text.replace(/[&<>"']/g, (char) => map[char]);
   }
 
   // State for activities and filters
@@ -804,7 +809,12 @@ document.addEventListener("DOMContentLoaded", () => {
       // Share via Email
       const subject = encodeURIComponent(`Check out ${activityName} at ${SCHOOL_NAME}`);
       const body = encodeURIComponent(`${shareText}\n\nVisit: ${shareUrl}`);
-      window.location.href = `mailto:?subject=${subject}&body=${body}`;
+      const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+      
+      // Use anchor element for better cross-browser compatibility
+      const anchor = document.createElement('a');
+      anchor.href = mailtoLink;
+      anchor.click();
     }
   }
 
