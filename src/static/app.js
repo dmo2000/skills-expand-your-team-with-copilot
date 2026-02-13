@@ -536,6 +536,8 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
 
     // Create difficulty badge (only if difficulty_level is set and is a valid value)
+    // Note: These valid levels should match the backend validation in activities.py
+    // The actual database values are: Beginner, Intermediate, Advanced (Unset is a query filter, not a database value)
     const validDifficultyLevels = ['Beginner', 'Intermediate', 'Advanced'];
     const difficultyBadge = details.difficulty_level && validDifficultyLevels.includes(details.difficulty_level) ? `
       <span class="difficulty-badge difficulty-${details.difficulty_level.toLowerCase()}">

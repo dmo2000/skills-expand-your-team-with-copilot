@@ -30,6 +30,8 @@ def get_activities(
     - difficulty_level: Filter by difficulty level ('Beginner', 'Intermediate', 'Advanced', 'Unset'). Use 'Unset' to show only activities without a specified difficulty level.
     """
     # Validate difficulty_level parameter
+    # Note: 'Unset' is a special query filter (not a database value) that shows activities without a difficulty_level field
+    # The actual valid database values are: Beginner, Intermediate, Advanced
     valid_difficulty_levels = ['Beginner', 'Intermediate', 'Advanced', 'Unset']
     if difficulty_level and difficulty_level not in valid_difficulty_levels:
         raise HTTPException(
