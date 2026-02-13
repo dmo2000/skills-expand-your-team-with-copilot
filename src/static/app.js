@@ -25,6 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeLoginModal = document.querySelector(".close-login-modal");
   const loginMessage = document.getElementById("login-message");
 
+  // Configuration constants
+  const SCHOOL_NAME = "Mergington High School";
+
   // Activity categories with corresponding colors
   const activityTypes = {
     sports: { label: "Sports", color: "#e8f5e9", textColor: "#2e7d32" },
@@ -33,6 +36,13 @@ document.addEventListener("DOMContentLoaded", () => {
     community: { label: "Community", color: "#fff3e0", textColor: "#e65100" },
     technology: { label: "Technology", color: "#e8eaf6", textColor: "#3949ab" },
   };
+
+  // Helper function to escape HTML attributes
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
 
   // State for activities and filters
   let allActivities = {};
@@ -530,13 +540,13 @@ document.addEventListener("DOMContentLoaded", () => {
       ${capacityIndicator}
       <div class="social-share-buttons">
         <span class="share-label">Share:</span>
-        <button class="share-btn share-twitter" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Twitter">
+        <button class="share-btn share-twitter" data-activity="${escapeHtml(name)}" data-description="${escapeHtml(details.description)}" data-schedule="${escapeHtml(formattedSchedule)}" title="Share on Twitter">
           <span class="share-icon">🐦</span>
         </button>
-        <button class="share-btn share-facebook" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share on Facebook">
+        <button class="share-btn share-facebook" data-activity="${escapeHtml(name)}" data-description="${escapeHtml(details.description)}" data-schedule="${escapeHtml(formattedSchedule)}" title="Share on Facebook">
           <span class="share-icon">📘</span>
         </button>
-        <button class="share-btn share-email" data-activity="${name}" data-description="${details.description}" data-schedule="${formattedSchedule}" title="Share via Email">
+        <button class="share-btn share-email" data-activity="${escapeHtml(name)}" data-description="${escapeHtml(details.description)}" data-schedule="${escapeHtml(formattedSchedule)}" title="Share via Email">
           <span class="share-icon">✉️</span>
         </button>
       </div>
@@ -778,7 +788,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const schedule = button.dataset.schedule;
     
     // Create share text
-    const shareText = `Check out ${activityName} at Mergington High School! ${description} Schedule: ${schedule}`;
+    const shareText = `Check out ${activityName} at ${SCHOOL_NAME}! ${description} Schedule: ${schedule}`;
     const shareUrl = window.location.href;
     
     // Determine which share button was clicked
@@ -792,7 +802,7 @@ document.addEventListener("DOMContentLoaded", () => {
       window.open(facebookUrl, '_blank', 'width=550,height=420');
     } else if (button.classList.contains('share-email')) {
       // Share via Email
-      const subject = encodeURIComponent(`Check out ${activityName} at Mergington High School`);
+      const subject = encodeURIComponent(`Check out ${activityName} at ${SCHOOL_NAME}`);
       const body = encodeURIComponent(`${shareText}\n\nVisit: ${shareUrl}`);
       window.location.href = `mailto:?subject=${subject}&body=${body}`;
     }
