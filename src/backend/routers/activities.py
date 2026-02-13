@@ -29,6 +29,14 @@ def get_activities(
     - end_time: Filter activities ending at or before this time (24-hour format, e.g., '17:00')
     - difficulty_level: Filter by difficulty level ('Beginner', 'Intermediate', 'Advanced', 'Unset'). Use 'Unset' to show only activities without a specified difficulty level.
     """
+    # Validate difficulty_level parameter
+    valid_difficulty_levels = ['Beginner', 'Intermediate', 'Advanced', 'Unset']
+    if difficulty_level and difficulty_level not in valid_difficulty_levels:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid difficulty_level. Must be one of: {', '.join(valid_difficulty_levels)}"
+        )
+    
     # Build the query based on provided filters
     query = {}
     
